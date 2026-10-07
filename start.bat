@@ -8,7 +8,10 @@ cd /d "%~dp0"
 
 rem The API is the same server the Expo app uses, in the app's own folder. The
 rem copy that used to live here is server-old-backup\ and is no longer started.
-set "SERVER_DIR=%USERPROFILE%\panzi-handoff\server"
+rem The app's folder is panzi\ (the GitHub clone); panzi-handoff\ is the older
+rem name it had as a zip, still found if that is the one on this computer.
+set "SERVER_DIR=%USERPROFILE%\panzi\server"
+if not exist "%SERVER_DIR%\package.json" if exist "%USERPROFILE%\panzi-handoff\server\package.json" set "SERVER_DIR=%USERPROFILE%\panzi-handoff\server"
 
 rem Process variables override Vite .env files and inherited preview flags.
 set "VITE_SAMPLE_DATA=false"
@@ -24,7 +27,7 @@ if errorlevel 1 (
 
 if not exist "%SERVER_DIR%\package.json" (
   echo Could not find the Panzi server at %SERVER_DIR%
-  echo Put the panzi-handoff folder in %USERPROFILE%, or change SERVER_DIR at the top of this file.
+  echo Put the panzi folder in %USERPROFILE%, or change SERVER_DIR at the top of this file.
   pause
   exit /b 1
 )
