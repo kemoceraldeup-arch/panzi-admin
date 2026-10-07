@@ -1,0 +1,19 @@
+# Dependencies and build output
+node_modules/
+dist/
+dist-preview/
+*.tsbuildinfo
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+serviceAccount*.json
+*.env
+
+# Old local backups (reference only, contain keys)
+old-accounts-backup/
+server-old-backup/
+
+# Stray file
+innerWidth})

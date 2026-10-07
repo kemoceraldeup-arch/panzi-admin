@@ -1,0 +1,8 @@
+{
+  "admin/src/components/SignIn.tsx": "a4b15da3dd83c181bab653e582bc906198fb13ed75ace54d46af1a8f34817070",
+  "admin/src/styles/global.css": "2822d620c90325e66d849b92d8472c82302a37556e6c3e05382716cb45358e49",
+  "admin/src/components/ui/SignInHelp.tsx": "7c1967af87da2cf1edf66e84d4e407e734aabf895971a48f4a406e4759b96fd1",
+  "admin/src/components/ui/FoodShowcase.tsx": "4f9424e0becc09a36059a8719540d9e5b3f063d8003831faf85493c7f2222a58",
+  "admin/src/components/ui/AnimatedPantryWord.tsx": "8a91e42d2fcab713e132c1d439b7c4f1d372c9a09d5e78732fbd1b1f93c52ab9",
+  "admin/src/components/Swirling.tsx": "6968108ad833bb710f69f2ec375c9f1ad005497d13cd818868557a33b5286c43"
+}
