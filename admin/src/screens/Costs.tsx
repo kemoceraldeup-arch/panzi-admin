@@ -23,7 +23,7 @@ export function Costs() {
     <>
       <PageHead
         title="API costs"
-        text="Understand the cost of powering Panzi's scanner and recipe suggestions. All costs are estimates from recorded usage."
+        text="Understand the cost of powering Panzi's scanner, recipe suggestions, chat and dish photos. All costs are estimates in pesos, from recorded usage and OpenAI's dollar prices."
         updatedAt={updatedAt}
         tools={<>
           <Segmented label="Date range" options={RANGE_OPTIONS} value={range} onChange={setRange} />
@@ -48,7 +48,7 @@ export function Costs() {
             <Panel title="Spend over time" aside={range}>
               <div className="panel-body">
                 {data.chart.length === 0 ? <Empty title="No model calls in this period" /> : (
-                  <ColumnChart label="Spend" rows={data.chart.map((bar) => ({ label: bar.label, value: bar.pct, tip: `${bar.label}\n${shown(bar.value)}` }))} />
+                  <ColumnChart label="Spend" rows={data.chart.map((bar) => ({ label: bar.label, value: bar.amount ?? bar.pct, tip: `${bar.label}\n${shown(bar.value)}` }))} />
                 )}
               </div>
             </Panel>

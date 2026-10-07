@@ -97,6 +97,8 @@ export interface CostBar {
   label: string;
   value: string;
   pct: number;
+  /** The bucket's spend in pesos, for the chart's axis. */
+  amount?: number;
 }
 
 export interface CostRoute {
@@ -152,6 +154,9 @@ export interface Recipe {
   /** Dish key from the app's assets/dishes convention, e.g. `pancit_canton`.
    *  Absent means no photo exists yet and the card keeps its placeholder. */
   photo?: string;
+  /** A full photo URL — an admin upload or a generated photo — used before
+   *  `photo`, the same order the app uses. */
+  photoUrl?: string | null;
   /** Last save or rating, ISO, for "nothing since March" reading. */
   lastAt?: string | null;
   /** Set when another dish shares this title — e.g. "Version 2 of 2". The
