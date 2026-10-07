@@ -47,11 +47,27 @@ For an isolated local design preview, set both preview flags to `true` for `npm 
 | Feedback | Messages from the app's Help & feedback, with a status (New, In progress, Resolved) and an internal note per message |
 | Pantry | Aggregates of stored ingredients; not an editable ingredient catalog |
 | Recipes | Dishes people saved, and the stars they gave after cooking |
+| Cookbook | Create, read, update and delete the dishes on the app's Recipes screen |
 | API costs | Estimated AI usage costs from recorded tokens |
 | System logs | API usage, administrator activity, and account deletions |
 | Settings | Admin access and read-only app configuration |
 
-Recipes is a connected screen again. It was hidden while it had nothing behind it; `saved_recipes` and `recipe_ratings` now answer the two questions its cards ask, so it reads the server like the rest. There is still no recipe catalog to edit: every dish is written by the model on the night it is suggested, and the lowercased title is the only identity it has.
+Recipes is a connected screen again. It was hidden while it had nothing behind it; `saved_recipes` and `recipe_ratings` now answer the two questions its cards ask, so it reads the server like the rest. Those AI-suggested dishes are not editable: every one is written by the model on the night it is suggested, and the lowercased title is the only identity it has.
+
+## Cookbook
+
+The one screen that changes what people see in the app. It manages the dishes on the app's Recipes screen (the category tabs with Pantry Only off), stored in the `cookbook_recipes` collection.
+
+| Action | In the console | Server route | In the app |
+|---|---|---|---|
+| Create | Add recipe, fill the side panel, save | `POST /api/admin/cookbook` | Appears at the top of its category |
+| Read | The table, with search and category filter | `GET /api/admin/cookbook` | `GET /api/cookbook` loads the list |
+| Update | Edit on a row, change, save | `PATCH /api/admin/cookbook/:id` | Shows the change |
+| Delete | Delete on a row, confirm | `DELETE /api/admin/cookbook/:id` | Disappears |
+
+The app picks up changes when the Recipes screen opens or is pulled down. Every write is admin-only and recorded in the audit log like the other admin routes. A photo is shrunk to 1000px JPEG in the browser and stored in the Supabase `dish-photos` bucket; it replaces the photo built into the app for that dish. Two administrators editing the same dish cannot overwrite each other: the second save is refused and asks them to reload.
+
+The 51 dishes built into the app were copied in once with `npm run seed:cookbook` in the server folder. Running it again only adds dishes that are missing by title, so it never overwrites an edit, but it does bring back a built-in dish that was deleted. If the server cannot be reached, the app shows the last list it downloaded, or the built-in list.
 
 Each connected screen has Refresh and a last-successful-update timestamp. Light/dark mode follows the system until explicitly selected, then persists across reloads. Date charts and summary values respect reduced motion.
 

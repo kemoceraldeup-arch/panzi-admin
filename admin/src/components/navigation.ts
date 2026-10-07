@@ -1,10 +1,11 @@
-import { ChartColumn, CookingPot, LayoutDashboard, MessageSquareText, Receipt, Refrigerator, ScrollText, Settings, Users } from 'lucide-react';
+import { BookOpen, ChartColumn, CookingPot, LayoutDashboard, MessageSquareText, Receipt, Refrigerator, ScrollText, Settings, Users } from 'lucide-react';
 
 export const navigation = [
   { label: 'Workspace', items: [
     { to: '/', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/food', label: 'Pantry', icon: Refrigerator },
     { to: '/recipes', label: 'Recipes', icon: CookingPot },
+    { to: '/cookbook', label: 'Cookbook', icon: BookOpen },
     { to: '/users', label: 'Users', icon: Users },
     { to: '/feedback', label: 'Feedback', icon: MessageSquareText },
   ] },

@@ -37,6 +37,8 @@ import type {
   UserResponse,
   UserActivity,
   FeedbackResponse,
+  CookbookInput,
+  CookbookRecipe,
 } from './types';
 
 /** Screens with no backing collection yet. See admin/README.md. */
@@ -280,3 +282,57 @@ export async function getLogs(options: BrowseQuery = {}): Promise<LogsResponse> 
 
 export { SAMPLE_MODE };
 export * from './types';
+
+/* ── Cookbook ────────────────────────────────────────────────────────
+ * The one screen that writes app content: the dishes on the app's Recipes
+ * screen. Sample mode keeps an in-memory copy so the page can be tried
+ * without a server; nothing there is saved anywhere.
+ */
+
+let sampleCookbook: CookbookRecipe[] = sample.COOKBOOK.map((r) => ({ ...r }));
+
+function sampleSave(input: CookbookInput, existing?: CookbookRecipe): CookbookRecipe {
+  const { photoBase64, removePhoto, ...fields } = input;
+  const photoUrl = photoBase64 ? `data:image/jpeg;base64,${photoBase64}` : removePhoto ? null : existing?.photoUrl ?? null;
+  return {
+    id: existing?.id ?? `sample-${Date.now()}`, dishKey: existing?.dishKey ?? 'other', look: existing?.look ?? 'other',
+    ...fields, photoUrl, revision: (existing?.revision ?? -1) + 1, updatedAt: new Date().toISOString(),
+  };
+}
+
+export async function getCookbook(): Promise<{ recipes: CookbookRecipe[] }> {
+  if (SAMPLE_MODE) return delay({ recipes: sampleCookbook.map((r) => ({ ...r })) });
+  return apiFetch('/api/admin/cookbook');
+}
+
+export async function createCookbookRecipe(input: CookbookInput): Promise<{ recipe: CookbookRecipe }> {
+  if (SAMPLE_MODE) {
+    if (sampleCookbook.some((r) => r.title.toLowerCase() === input.title.trim().toLowerCase())) {
+      throw new ApiError('duplicate-title', `A recipe called “${input.title.trim()}” already exists.`);
+    }
+    const recipe = sampleSave(input);
+    sampleCookbook = [recipe, ...sampleCookbook];
+    return delay({ recipe });
+  }
+  return apiFetch('/api/admin/cookbook', { method: 'POST', body: input });
+}
+
+export async function updateCookbookRecipe(id: string, revision: number, input: CookbookInput): Promise<{ recipe: CookbookRecipe }> {
+  if (SAMPLE_MODE) {
+    const existing = sampleCookbook.find((r) => r.id === id);
+    if (!existing) throw new ApiError('not-found', 'This recipe no longer exists. Reload the list.');
+    const recipe = sampleSave(input, existing);
+    sampleCookbook = sampleCookbook.map((r) => (r.id === id ? recipe : r));
+    return delay({ recipe });
+  }
+  return apiFetch(`/api/admin/cookbook/${encodeURIComponent(id)}`, { method: 'PATCH', body: { ...input, revision } });
+}
+
+export async function deleteCookbookRecipe(id: string): Promise<{ deleted: string; title: string }> {
+  if (SAMPLE_MODE) {
+    const existing = sampleCookbook.find((r) => r.id === id);
+    sampleCookbook = sampleCookbook.filter((r) => r.id !== id);
+    return delay({ deleted: id, title: existing?.title ?? '' });
+  }
+  return apiFetch(`/api/admin/cookbook/${encodeURIComponent(id)}`, { method: 'DELETE' });
+}

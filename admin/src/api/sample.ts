@@ -7,6 +7,7 @@
 // no real source at all say so on the page.
 
 import type {
+  CookbookRecipe,
   ActivityRow,
   AdminUser,
   AnalyticsData,
@@ -250,3 +251,23 @@ export const PREVIEW_TRANSCRIPTS: Record<string, ChatTranscript> = {
     { id: 'm2', role: 'assistant', text: 'Up to 4 days in the fridge, sealed. Sinangag is a good way to use it up.', recipeTitle: null, at: '19:40' },
   ] },
 };
+
+/** A few of the app's cookbook dishes, for trying the Cookbook page offline. */
+export const COOKBOOK: CookbookRecipe[] = [
+  { id: 'c1', title: 'Chicken adobo', category: 'ulam', minutes: 45, servings: 4, dishKey: 'adobo', look: 'chicken', photoUrl: null, revision: 0, updatedAt: null,
+    description: 'A Filipino classic of chicken braised in soy sauce, vinegar and garlic.',
+    ingredients: [{ name: 'Chicken thighs', amount: '1 kg' }, { name: 'Soy sauce', amount: '½ cup' }, { name: 'Cane vinegar', amount: '⅓ cup' }, { name: 'Garlic, crushed', amount: '1 head' }],
+    steps: ['Marinate the chicken in soy sauce and garlic for 30 minutes.', 'Simmer with vinegar and bay leaves until tender.', 'Reduce the sauce until glossy and serve with rice.'] },
+  { id: 'c2', title: 'Sinigang na baboy', category: 'ulam', minutes: 50, servings: 5, dishKey: 'sinigang', look: 'soup', photoUrl: null, revision: 0, updatedAt: null,
+    description: 'A sour tamarind soup of pork and vegetables.',
+    ingredients: [{ name: 'Pork ribs', amount: '1 kg' }, { name: 'Tamarind soup base', amount: '1 pack' }, { name: 'Kangkong', amount: '1 bunch' }],
+    steps: ['Boil the pork with tomatoes and onion until tender.', 'Add radish and tamarind base.', 'Add kangkong last and season to taste.'] },
+  { id: 'c3', title: 'Pancit canton', category: 'quick', minutes: 25, servings: 5, dishKey: 'pancit_canton', look: 'noodles', photoUrl: null, revision: 0, updatedAt: null,
+    description: 'Stir-fried wheat noodles with vegetables and your choice of meat.',
+    ingredients: [{ name: 'Canton noodles', amount: '250 g' }, { name: 'Chicken strips', amount: '150 g' }, { name: 'Mixed vegetables', amount: '2 cups' }],
+    steps: ['Stir-fry the chicken and vegetables.', 'Add broth and soy sauce, then the noodles.', 'Toss until the liquid is absorbed.'] },
+  { id: 'c4', title: 'Turon', category: 'merienda', minutes: 25, servings: 6, dishKey: 'turon', look: 'merienda', photoUrl: null, revision: 0, updatedAt: null,
+    description: 'Saba banana and jackfruit wrapped and fried in caramelized sugar.',
+    ingredients: [{ name: 'Saba bananas', amount: '6' }, { name: 'Jackfruit strips', amount: '½ cup' }, { name: 'Spring roll wrappers', amount: '12' }],
+    steps: ['Roll banana and jackfruit in wrappers.', 'Fry until golden.', 'Add sugar to the oil to coat with caramel.'] },
+];

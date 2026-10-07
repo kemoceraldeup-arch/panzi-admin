@@ -16,6 +16,7 @@ import { Feedback } from './screens/Feedback';
 import { FoodDatabase } from './screens/FoodDatabase';
 import { Logs } from './screens/Logs';
 import { Recipes } from './screens/Recipes';
+import { Cookbook } from './screens/Cookbook';
 import { Settings } from './screens/Settings';
 import { Users } from './screens/Users';
 import { PanziCompanion } from './components/PanziCompanion';
@@ -259,6 +260,7 @@ export function App() {
               <Route path="feedback" element={<Feedback />} />
               <Route path="food" element={<FoodDatabase />} />
               <Route path="recipes" element={<Recipes />} />
+              <Route path="cookbook" element={<Cookbook />} />
               <Route path="analytics" element={<Analytics />} />
               <Route path="costs" element={<Costs />} />
               <Route path="logs" element={<Logs />} />

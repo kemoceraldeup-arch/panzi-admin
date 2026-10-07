@@ -515,3 +515,40 @@ export interface FeedbackResponse {
   open: number;
   pagination: PageMetadata;
 }
+
+/* ── Cookbook (create / read / update / delete) ───────────────────── */
+
+export type CookbookCategory = 'ulam' | 'quick' | 'merienda';
+
+/** One dish on the app's Recipes screen, as the console edits it. */
+export interface CookbookRecipe {
+  id: string;
+  title: string;
+  category: CookbookCategory;
+  minutes: number;
+  servings: number;
+  description: string;
+  ingredients: { name: string; amount: string }[];
+  steps: string[];
+  /** The app's bundled photo key; 'other' for dishes added here. */
+  dishKey: string;
+  look: string;
+  /** An uploaded photo, or null. */
+  photoUrl: string | null;
+  /** Sent back on save so two administrators cannot overwrite each other. */
+  revision: number;
+  updatedAt: string | null;
+}
+
+/** What the form sends. A photo is base64 JPEG without the data: prefix. */
+export interface CookbookInput {
+  title: string;
+  category: CookbookCategory;
+  minutes: number;
+  servings: number;
+  description: string;
+  ingredients: { name: string; amount: string }[];
+  steps: string[];
+  photoBase64?: string;
+  removePhoto?: boolean;
+}
