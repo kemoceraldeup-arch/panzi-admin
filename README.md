@@ -5,9 +5,9 @@ The Panzi admin console. It talks to the same API as the Expo app, so everything
 | Folder | What it is | Port |
 |---|---|---|
 | `admin/` | The admin website (React + Vite) | 5173 |
-| `C:\Users\Kenne\panzi-handoff\server` | The Panzi API (Express), shared with the Expo app | 8080 |
+| `C:\Users\Kenne\panzi\server` | The Panzi API (Express), shared with the Expo app | 8080 |
 
-On 2026-09-29 the admin routes were merged into the app's server (`panzi-handoff\server`), and that is now the only API. The copy that used to live here was renamed `server-old-backup/`. It is kept only for reference, is not started, and should not be edited.
+On 2026-09-29 the admin routes were merged into the app's server (`panzi\server`), and that is now the only API. The copy that used to live here was renamed `server-old-backup/`. It is kept only for reference, is not started, and should not be edited.
 
 ## Run it
 
@@ -20,7 +20,7 @@ The launcher always uses the real API and administrator sign-in. It overrides an
 Or by hand, in two terminals:
 
 ```powershell
-cd "$HOME\panzi-handoff\server"
+cd "$HOME\panzi\server"
 npm run dev
 ```
 
@@ -29,19 +29,19 @@ cd "$HOME\Our admin website\Our admin website\admin"
 npm run dev
 ```
 
-Start the API first and keep both windows open. The website must be on port 5173: the API only accepts that origin (`ALLOWED_ORIGINS` in `panzi-handoff\server\.env`). The website refuses to start on any other port rather than show "Failed to fetch".
+Start the API first and keep both windows open. The website must be on port 5173: the API only accepts that origin (`ALLOWED_ORIGINS` in `panzi\server\.env`). The website refuses to start on any other port rather than show "Failed to fetch".
 
-On a new computer, run `npm install` in both `panzi-handoff\server` and `admin/` first.
+On a new computer, run `npm install` in both `panzi\server` and `admin/` first.
 
 ## Check the databases
 
-The API connects to MongoDB Atlas (app data), Firebase (sign-in) and Supabase (avatar and dish photo storage), using the keys in `panzi-handoff\server\.env`. To confirm all three accept those keys:
+The API connects to MongoDB Atlas (app data), Firebase (sign-in) and Supabase (avatar and dish photo storage), using the keys in `panzi\server\.env`. To confirm all three accept those keys:
 
 ```powershell
-cd "$HOME\panzi-handoff\server"
+cd "$HOME\panzi\server"
 npm run check
 ```
 
 Each line prints `OK` or `FAIL` with the reason. The check only reads; it changes nothing.
 
-See `admin/README.md` for the workspace screens, and `panzi-handoff\server\README.md` for the API.
+See `admin/README.md` for the workspace screens, and `panzi\server\README.md` for the API.
